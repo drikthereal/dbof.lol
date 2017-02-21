@@ -1,4 +1,18 @@
 <?php
+
+/*
+ * Display a notification in the admin when Timber is not activated.
+ */
+if (!class_exists('Timber')) {
+    add_action(
+        'admin_notices', function () {
+            echo '<div class="error"><p>Timber not activated. Make sure you activate the plugin in <a href="'.esc_url(admin_url('plugins.php#timber')).'">'.esc_url(admin_url('plugins.php')).'</a></p></div>';
+        }
+    );
+
+    return;
+}
+
 /**
  * Updates the path to the correct value.
  *
@@ -45,3 +59,21 @@ function tp_stylesheet_directory_uri($url) {
     return tp_update_content_path($url);
 }
 add_filter('stylesheet_directory_uri', 'tp_stylesheet_directory_uri');
+
+
+
+// TIMBER
+
+// Extend timber context
+function tp_timber_context($context) {
+    // Menus by location
+    $nav_menu_locations = get_nav_menu_locations();
+    foreach($nav_menu_locations as $location_slug => $id) {
+        $context['menu'][$location_slug] = new TimberMenu($id);
+    }
+    return $context;
+}
+add_filter('timber_context', 'tp_timber_context');
+
+// Set templates folder
+Timber::$dirname = array('templates');
