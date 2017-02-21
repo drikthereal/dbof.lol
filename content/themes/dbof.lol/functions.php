@@ -19,8 +19,8 @@ if (!class_exists('Timber')) {
  * @param [string] $old_path
  * @return [string]
  */
-function tp_update_content_path($old_path) {
-    return str_replace(TP_WORDPRESS_DIR_NAME.'/wp-content', TP_CONTENT_DIR_NAME, $old_path);
+function lol__update_content_path($old_path) {
+    return str_replace(LOL__WORDPRESS_DIR_NAME.'/wp-content', LOL__CONTENT_DIR_NAME, $old_path);
 }
 
 /**
@@ -31,10 +31,10 @@ function tp_update_content_path($old_path) {
  * @param [string] $plugin
  * @return [string]
  */
-function tp_plugins_url($url, $path, $plugin) {
-    return tp_update_content_path($url);
+function lol__plugins_url($url, $path, $plugin) {
+    return lol__update_content_path($url);
 }
-add_filter('plugins_url', 'tp_plugins_url', 10, 3);
+add_filter('plugins_url', 'lol__plugins_url', 10, 3);
 
 /**
  * Use the correct upload dir.
@@ -42,12 +42,12 @@ add_filter('plugins_url', 'tp_plugins_url', 10, 3);
  * @param [type] $param [description]
  * @return [type] [description]
  */
-function tp_upload_dir($param) {
-    $param['baseurl'] = tp_update_content_path($param['baseurl']);
-    $param['url'] = tp_update_content_path($param['url']);
+function lol__upload_dir($param) {
+    $param['baseurl'] = lol__update_content_path($param['baseurl']);
+    $param['url'] = lol__update_content_path($param['url']);
     return $param;
 }
-add_filter('upload_dir', 'tp_upload_dir');
+add_filter('upload_dir', 'lol__upload_dir');
 
 /**
  * get_stylesheet_directory_uri() has to return the correct path.
@@ -55,17 +55,29 @@ add_filter('upload_dir', 'tp_upload_dir');
  * @param [string] $url
  * @return [string]
  */
-function tp_stylesheet_directory_uri($url) {
-    return tp_update_content_path($url);
+function lol__stylesheet_directory_uri($url) {
+    return lol__update_content_path($url);
 }
-add_filter('stylesheet_directory_uri', 'tp_stylesheet_directory_uri');
+add_filter('stylesheet_directory_uri', 'lol__stylesheet_directory_uri');
+
+// Only store 5 revisions / post
+function lol__wp_revisions_to_keep($num, $post) {
+    return 5;
+}
+add_filter('wp_revisions_to_keep', 'lol__wp_revisions_to_keep', 10, 2);
+
+// Featured image support
+function lol__after_setup_theme() {
+    add_theme_support('post-thumbnails');
+}
+add_action('after_setup_theme', 'lol__after_setup_theme');
 
 
 
 // TIMBER
 
 // Extend timber context
-function tp_timber_context($context) {
+function lol__timber_context($context) {
     // Menus by location
     $nav_menu_locations = get_nav_menu_locations();
     foreach($nav_menu_locations as $location_slug => $id) {
@@ -73,7 +85,7 @@ function tp_timber_context($context) {
     }
     return $context;
 }
-add_filter('timber_context', 'tp_timber_context');
+add_filter('timber_context', 'lol__timber_context');
 
 // Set templates folder
 Timber::$dirname = array('templates');
