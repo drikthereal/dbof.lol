@@ -7,9 +7,14 @@ if(is_404() || isset($_GET['is_404'])) {
      * But it doesn't work in the admin area. So to make sure plugins use the correct plugins folder,
      * we have to redirect the browser to the right destination.
      */
-    if(strstr($_SERVER['REQUEST_URI'], LOL__WORDPRESS_DIR_NAME.'/wp-content')) {
+    $uri = $_SERVER['REQUEST_URI'];
+    $uri = explode('?', $uri, 2);
+    if(strstr($uri[0], LOL__WORDPRESS_DIR_NAME.'/wp-content')) {
         $request_uri = lol__update_content_path($_SERVER['REQUEST_URI']);
         $request_uri = rtrim($request_uri, '/');
+        if(!empty($uri[1])) {
+            $request_uri .= '?' . $uri[1];
+        }
         wp_redirect($request_uri, 301);
         exit;
     }
