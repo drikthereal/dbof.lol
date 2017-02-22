@@ -1,6 +1,6 @@
 <?php
 
-if(is_404()) {
+if(is_404() || !empty($_GET['is_404'])) {
     /**
      * This is a bit of a hack...
      * In functions.php we have a plugins_url filter (tp_plugins_url) which works on the frontend.
