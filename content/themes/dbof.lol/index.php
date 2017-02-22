@@ -9,7 +9,7 @@ if(is_404() || isset($_GET['is_404'])) {
      */
     if(strstr($_SERVER['REQUEST_URI'], LOL__WORDPRESS_DIR_NAME.'/wp-content')) {
         $request_uri = lol__update_content_path($_SERVER['REQUEST_URI']);
-        $request_uri = trim($request_uri, '/');
+        $request_uri = rtrim($request_uri, '/');
         wp_redirect($request_uri, 301);
         exit;
     }
