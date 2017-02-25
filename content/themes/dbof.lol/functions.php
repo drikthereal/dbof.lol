@@ -88,4 +88,4 @@ function lol__timber_context($context) {
 add_filter('timber_context', 'lol__timber_context');
 
 // Set templates folder
-Timber::$dirname = array('templates');
+Timber::$dirname = array('layouts', 'templates');

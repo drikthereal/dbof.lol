@@ -1,0 +1,13 @@
+{% extends 'layout.twig' %}
+
+{% block content %}
+    <a href="{{function('get_post_type_archive_link', post.post_type)}}">Comedians</a>
+    <h1>{{post.title}}</h1>
+    {{post.content}}
+    <hr>
+    <h2>Jokes</h2>
+    {% for joke_raw in post.get_field('jokes') %}
+        {% set joke = TimberPost(joke_raw.ID)  %}
+        <p><a href="{{joke.link}}">{{joke.title}}</a></p>
+    {% endfor %}
+{% endblock %}

@@ -1,0 +1,8 @@
+{% extends 'layout.twig' %}
+
+{% block content %}
+    <h1>Jokes</h1>
+    {% for joke in posts %}
+    <p><a href="{{joke.link}}">{{joke.title}}</a></p>
+    {% endfor %}
+{% endblock %}

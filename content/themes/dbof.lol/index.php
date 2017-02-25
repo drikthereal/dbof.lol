@@ -25,5 +25,15 @@ if (!class_exists('Timber')) {
     return;
 }
 
+$template = array('index.twig');
 $context = Timber::get_context();
-Timber::render('default.twig', $context);
+
+if(is_single()) {
+    $context['post'] = new TimberPost();
+    array_unshift($template, $context['post']->post_type . '-single.twig');
+
+} elseif(is_post_type_archive()) {
+    array_unshift($template, get_post_type() . '.twig');
+}
+
+Timber::render($template, $context);

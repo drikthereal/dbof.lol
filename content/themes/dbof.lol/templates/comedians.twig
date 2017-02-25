@@ -1,0 +1,8 @@
+{% extends 'layout.twig' %}
+
+{% block content %}
+    <h1>Comedians</h1>
+    {% for comedian in posts %}
+    <p><a href="{{comedian.link}}">{{comedian.title}}</a></p>
+    {% endfor %}
+{% endblock %}
