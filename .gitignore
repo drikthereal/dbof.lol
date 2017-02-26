@@ -1,6 +1,7 @@
 .htaccess
 wp-config.php
 node_modules/
+uploads/
 
 assets/*
 !assets/.keep
