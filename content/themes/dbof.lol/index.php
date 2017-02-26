@@ -8,7 +8,9 @@ if (!class_exists('Timber')) {
 $template = array('index.twig');
 $context = Timber::get_context();
 
-if(is_404() || isset($_GET['is_404'])) {
+$is_404 = is_404();
+
+if($is_404 || isset($_GET['is_404'])) {
     /**
      * This is a bit of a hack...
      * In functions.php we have a plugins_url filter (tp_plugins_url) which works on the frontend.
@@ -25,7 +27,7 @@ if(is_404() || isset($_GET['is_404'])) {
         }
         wp_redirect($request_uri, 301);
         exit;
-    } else {
+    } elseif($is_404) {
         array_unshift($template, '404.twig');
     }
 } elseif(is_single()) {
