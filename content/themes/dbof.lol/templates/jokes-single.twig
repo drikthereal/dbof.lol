@@ -5,15 +5,17 @@
     <h1>{{post.title}}</h1>
 
     {% for tag in post.terms('tags') %}
-    <a href="{{tag.link}}">{{tag.title}}</a> 
+    <a href="{{tag.link}}">{{tag.title}}</a>
     {% endfor %}
 
     {{post.content}}
 
     <hr>
 
-    <h2>Comedian</h2>
-    {% set joke_author_raw = post.get_field('joke_author') %}
-    {% set joke_author = TimberPost(joke_author_raw.ID) %}
-    <h3><a href="{{joke_author.link}}">{{joke_author.title}}</a></h3>
+    {% set comedian__raw = post.get_field('comedian') %}
+    {% if comedian__raw is not empty %}
+        <h2>Comedian</h2>
+        {% set comedian = TimberPost(comedian__raw.ID) %}
+        <h3><a href="{{comedian.link}}">{{comedian.title}}</a></h3>
+    {% endif %}
 {% endblock %}
