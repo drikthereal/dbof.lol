@@ -34,6 +34,9 @@ if(is_single()) {
 
 } elseif(is_post_type_archive()) {
     array_unshift($template, get_post_type() . '.twig');
+} elseif(is_page()) {
+    $context['page'] = new TimberPost();
+    array_unshift($template, 'page.twig');
 }
 
 Timber::render($template, $context);
