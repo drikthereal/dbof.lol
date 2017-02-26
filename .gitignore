@@ -1,2 +1,6 @@
 .htaccess
 wp-config.php
+node_modules/
+
+assets/*
+!assets/.keep
