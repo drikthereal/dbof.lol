@@ -12,6 +12,6 @@
     <h2>Jokes</h2>
     {% for joke_raw in post.get_field('jokes') %}
         {% set joke = TimberPost(joke_raw.ID)  %}
-        <p><a href="{{joke.link}}">{{joke.title}}</a></p>
+        <p><a href="{{joke.link}}">{{joke.title}}</a> - {{joke.get_preview(10, true)}}</p>
     {% endfor %}
 {% endblock %}
