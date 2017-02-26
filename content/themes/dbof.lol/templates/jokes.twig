@@ -3,6 +3,6 @@
 {% block content %}
     <h1>Jokes</h1>
     {% for joke in posts %}
-        <p><a href="{{joke.link}}">{{joke.title}}</a></p>
+        <p><a href="{{joke.link}}">{{joke.title}}</a> - {{joke.get_preview(10, true)}}</p>
     {% endfor %}
 {% endblock %}

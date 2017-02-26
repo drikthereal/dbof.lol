@@ -1,5 +1,9 @@
 {% extends 'layout.twig' %}
 
+{% block og_type %}profile{% endblock %}
+{% block og_title %}{{post.title}}{% endblock %}
+{% block og_description %}{{post.get_preview(10, false, false)}}{% endblock %}
+
 {% block content %}
     <a href="{{function('get_post_type_archive_link', post.post_type)}}">Comedians</a>
     <h1>{{post.title}}</h1>

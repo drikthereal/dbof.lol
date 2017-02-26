@@ -92,6 +92,10 @@ function lol__timber_context($context) {
     foreach($nav_menu_locations as $location_slug => $id) {
         $context['menu'][$location_slug] = new TimberMenu($id);
     }
+    // Current url
+    global $wp;
+    $context['current_url'] = rtrim(esc_url(home_url(add_query_arg(array(),$wp->request))), '/') . '/';
+
     return $context;
 }
 add_filter('timber_context', 'lol__timber_context');
