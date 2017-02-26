@@ -3,8 +3,15 @@
 {% block content %}
     <a href="{{function('get_post_type_archive_link', post.post_type)}}">Jokes</a>
     <h1>{{post.title}}</h1>
+
+    {% for tag in post.terms('tags') %}
+    <a href="{{tag.link}}">{{tag.title}}</a> 
+    {% endfor %}
+
     {{post.content}}
+
     <hr>
+
     <h2>Comedian</h2>
     {% set joke_author_raw = post.get_field('joke_author') %}
     {% set joke_author = TimberPost(joke_author_raw.ID) %}

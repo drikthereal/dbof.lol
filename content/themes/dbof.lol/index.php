@@ -37,6 +37,9 @@ if(is_404() || isset($_GET['is_404'])) {
 } elseif(is_page()) {
     $context['page'] = new TimberPost();
     array_unshift($template, 'page.twig');
+} elseif(is_tag()) {
+    $context['tag'] = new TimberTerm();
+    array_unshift($template, 'tag.twig');
 }
 
 Timber::render($template, $context);
