@@ -1,5 +1,13 @@
 <?php
 
+if (!class_exists('Timber')) {
+    echo 'Timber not activated. Make sure you activate the plugin in <a href="/wp-admin/plugins.php#timber">/wp-admin/plugins.php</a>';
+    return;
+}
+
+$template = array('index.twig');
+$context = Timber::get_context();
+
 if(is_404() || isset($_GET['is_404'])) {
     /**
      * This is a bit of a hack...
@@ -17,18 +25,10 @@ if(is_404() || isset($_GET['is_404'])) {
         }
         wp_redirect($request_uri, 301);
         exit;
+    } else {
+        array_unshift($template, '404.twig');
     }
-}
-
-if (!class_exists('Timber')) {
-    echo 'Timber not activated. Make sure you activate the plugin in <a href="/wp-admin/plugins.php#timber">/wp-admin/plugins.php</a>';
-    return;
-}
-
-$template = array('index.twig');
-$context = Timber::get_context();
-
-if(is_single()) {
+} elseif(is_single()) {
     $context['post'] = new TimberPost();
     array_unshift($template, $context['post']->post_type . '-single.twig');
 
