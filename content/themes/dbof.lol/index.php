@@ -30,10 +30,11 @@ if($is_404 || isset($_GET['is_404'])) {
     } elseif($is_404) {
         array_unshift($template, '404.twig');
     }
-} elseif(is_single()) {
+}
+
+if(is_single()) {
     $context['post'] = new TimberPost();
     array_unshift($template, $context['post']->post_type . '-single.twig');
-
 } elseif(is_post_type_archive()) {
     array_unshift($template, get_post_type() . '.twig');
 } elseif(is_page()) {
