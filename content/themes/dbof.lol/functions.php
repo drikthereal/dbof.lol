@@ -72,6 +72,15 @@ function lol__after_setup_theme() {
 }
 add_action('after_setup_theme', 'lol__after_setup_theme');
 
+function lol__init() {
+    register_nav_menus(
+        array(
+            'main-menu' => __('Main Menu', 'lol')
+        )
+    );
+}
+add_action('init', 'lol__init');
+
 
 
 // TIMBER
