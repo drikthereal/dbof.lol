@@ -25,16 +25,12 @@ let config = {
                 test: /\.scss$/,
                 use: ExtractTextPlugin.extract({
                     fallback: 'style-loader',
-                    use: [{
-                        loader: 'css-loader'
-                    }, {
+                    use: ['css-loader', {
                         loader: 'postcss-loader',
                         options: {
-                            plugins: () => [require('cssnano')]
+                            plugins: () => [require('autoprefixer'), require('cssnano')]
                         }
-                    }, {
-                        loader: 'sass-loader'
-                    }]
+                    }, 'sass-loader']
                 })
             }
         ]
